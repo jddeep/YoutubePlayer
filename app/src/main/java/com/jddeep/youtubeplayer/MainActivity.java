@@ -70,25 +70,25 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.e("onKeyDown: ", "keycode: " + keyCode + "event: " + event.toString());
-        switch (keyCode){
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        Log.e("dispatchKeyEvent: ", "keycode: " + event.getKeyCode() + "event: " + event.toString());
+        switch (event.getKeyCode()){
             case KeyEvent.KEYCODE_DPAD_CENTER:
                 if(event.getAction() == 0)
-                youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
-                    @Override
-                    public void onYouTubePlayer(@NonNull YouTubePlayer youTubePlayer) {
-                        if(!isPlaying){
-                            youTubePlayer.play();
-                            Log.e("Play: ", String.valueOf(isPlaying));
-                            isPlaying = true;
-                        }else {
-                            youTubePlayer.pause();
-                            Log.e("Pause: ", String.valueOf(isPlaying));
-                            isPlaying = false;
+                    youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
+                        @Override
+                        public void onYouTubePlayer(@NonNull YouTubePlayer youTubePlayer) {
+                            if(!isPlaying){
+                                youTubePlayer.play();
+                                Log.e("Play: ", String.valueOf(isPlaying));
+                                isPlaying = true;
+                            }else {
+                                youTubePlayer.pause();
+                                Log.e("Pause: ", String.valueOf(isPlaying));
+                                isPlaying = false;
+                            }
                         }
-                    }
-                });
+                    });
                 return true;
             case KeyEvent.KEYCODE_DPAD_UP_RIGHT:
             case KeyEvent.KEYCODE_DPAD_RIGHT:
@@ -101,6 +101,41 @@ public class MainActivity extends Activity {
                 return true;
 
         }
-        return super.onKeyDown(keyCode, event);
+        return true;
     }
+
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        Log.e("onKeyDown: ", "keycode: " + keyCode + "event: " + event.toString());
+//        switch (keyCode){
+//            case KeyEvent.KEYCODE_DPAD_CENTER:
+//                if(event.getAction() == 0)
+//                youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
+//                    @Override
+//                    public void onYouTubePlayer(@NonNull YouTubePlayer youTubePlayer) {
+//                        if(!isPlaying){
+//                            youTubePlayer.play();
+//                            Log.e("Play: ", String.valueOf(isPlaying));
+//                            isPlaying = true;
+//                        }else {
+//                            youTubePlayer.pause();
+//                            Log.e("Pause: ", String.valueOf(isPlaying));
+//                            isPlaying = false;
+//                        }
+//                    }
+//                });
+//                return true;
+//            case KeyEvent.KEYCODE_DPAD_UP_RIGHT:
+//            case KeyEvent.KEYCODE_DPAD_RIGHT:
+//                youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
+//                    @Override
+//                    public void onYouTubePlayer(@NonNull YouTubePlayer youTubePlayer) {
+//                        youTubePlayer.seekTo(5.0f);
+//                    }
+//                });
+//                return true;
+//
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 }
