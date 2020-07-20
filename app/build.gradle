@@ -25,6 +25,12 @@ android {
 
 }
 
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        outputFileName = "Web_Youtube_player_Rel_${variant.versionName}.apk"
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
