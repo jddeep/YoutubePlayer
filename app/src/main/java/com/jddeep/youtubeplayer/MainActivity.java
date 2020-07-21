@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
 
     YouTubePlayerView youTubePlayerView;
     boolean isPlaying = true;
+    static float currTime = 0.0f;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,12 +91,27 @@ public class MainActivity extends Activity {
                         }
                     });
                 return true;
-            case KeyEvent.KEYCODE_DPAD_UP_RIGHT:
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
+                if(event.getAction() == 0)
                 youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
                     @Override
                     public void onYouTubePlayer(@NonNull YouTubePlayer youTubePlayer) {
-                        youTubePlayer.seekTo(5.0f);
+                        currTime += 15.0f;
+                        youTubePlayer.seekTo(currTime);
+
+                    }
+                });
+                return true;
+            case KeyEvent.KEYCODE_MEDIA_REWIND:
+                if(event.getAction() == 0)
+                youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
+                    @Override
+                    public void onYouTubePlayer(@NonNull YouTubePlayer youTubePlayer) {
+                        if(currTime >= 15.0f)
+                        currTime -= 15.0f;
+                        else currTime = 0.0f;
+                        youTubePlayer.seekTo(currTime);
+
                     }
                 });
                 return true;
