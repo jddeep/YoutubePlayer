@@ -21,9 +21,11 @@ import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 /*
@@ -34,6 +36,7 @@ public class MainActivity extends Activity {
     YouTubePlayerView youTubePlayerView;
     boolean isPlaying = true;
     static float currTime = 0.0f;
+    float vidDuration = currTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,58 @@ public class MainActivity extends Activity {
                 youTubePlayer.loadVideo("S0Q4gqBUs7c", 0f);
             }
         });
+        youTubePlayerView.addYouTubePlayerListener(new YouTubePlayerListener() {
+            @Override
+            public void onReady(YouTubePlayer youTubePlayer) {
+            }
+
+            @Override
+            public void onStateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlayerState playerState) {
+
+            }
+
+            @Override
+            public void onPlaybackQualityChange(YouTubePlayer youTubePlayer, PlayerConstants.PlaybackQuality playbackQuality) {
+
+            }
+
+            @Override
+            public void onPlaybackRateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlaybackRate playbackRate) {
+
+            }
+
+            @Override
+            public void onError(YouTubePlayer youTubePlayer, PlayerConstants.PlayerError playerError) {
+
+            }
+
+            @Override
+            public void onCurrentSecond(YouTubePlayer youTubePlayer, float v) {
+                currTime = v;
+            }
+
+            @Override
+            public void onVideoDuration(YouTubePlayer youTubePlayer, float v) {
+                vidDuration = v;
+                Log.e("VideoDuration: ", ""+ vidDuration);
+            }
+
+            @Override
+            public void onVideoLoadedFraction(YouTubePlayer youTubePlayer, float v) {
+
+            }
+
+            @Override
+            public void onVideoId(YouTubePlayer youTubePlayer, String s) {
+
+            }
+
+            @Override
+            public void onApiChange(YouTubePlayer youTubePlayer) {
+
+            }
+        });
+
     }
 
     @Override
@@ -97,6 +152,9 @@ public class MainActivity extends Activity {
                     @Override
                     public void onYouTubePlayer(@NonNull YouTubePlayer youTubePlayer) {
                         currTime += 15.0f;
+                        if(currTime >= vidDuration) return;
+//                            currTime = vidDuration;
+                        Log.e("FRWDCURRTime: ", ""+currTime);
                         youTubePlayer.seekTo(currTime);
 
                     }
