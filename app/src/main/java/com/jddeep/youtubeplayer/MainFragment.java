@@ -78,7 +78,7 @@ public class MainFragment extends BrowseFragment {
 
         setupUIElements();
 
-//        loadRows();
+        loadRows();
 
         setupEventListeners();
     }
@@ -144,9 +144,9 @@ public class MainFragment extends BrowseFragment {
         setHeadersTransitionOnBackEnabled(true);
 
         // set fastLane (or headers) background color
-//        setBrandColor(ContextCompat.getColor(getActivity(), R.color.fastlane_background));
+        setBrandColor(ContextCompat.getColor(getActivity(), android.R.color.holo_red_dark));
         // set search icon color
-//        setSearchAffordanceColor(ContextCompat.getColor(getActivity(), R.color.search_opaque));
+        setSearchAffordanceColor(ContextCompat.getColor(getActivity(), android.R.color.holo_red_dark));
     }
 
     private void setupEventListeners() {
@@ -194,26 +194,28 @@ public class MainFragment extends BrowseFragment {
         public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item,
                                   RowPresenter.ViewHolder rowViewHolder, Row row) {
 
-            if (item instanceof Movie) {
-                Movie movie = (Movie) item;
-                Log.d(TAG, "Item: " + item.toString());
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra(DetailsActivity.MOVIE, movie);
-
-                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        ((ImageCardView) itemViewHolder.view).getMainImageView(),
-                        DetailsActivity.SHARED_ELEMENT_NAME)
-                        .toBundle();
-                getActivity().startActivity(intent, bundle);
-            } else if (item instanceof String) {
-                if (((String) item).contains(getString(R.string.error_fragment))) {
-                    Intent intent = new Intent(getActivity(), BrowseErrorActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getActivity(), ((String) item), Toast.LENGTH_SHORT).show();
-                }
-            }
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            getActivity().startActivity(intent);
+//            if (item instanceof Movie) {
+//                Movie movie = (Movie) item;
+//                Log.d(TAG, "Item: " + item.toString());
+//                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+//                intent.putExtra(DetailsActivity.MOVIE, movie);
+//
+//                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                        getActivity(),
+//                        ((ImageCardView) itemViewHolder.view).getMainImageView(),
+//                        DetailsActivity.SHARED_ELEMENT_NAME)
+//                        .toBundle();
+//                getActivity().startActivity(intent, bundle);
+//            } else if (item instanceof String) {
+//                if (((String) item).contains(getString(R.string.error_fragment))) {
+//                    Intent intent = new Intent(getActivity(), BrowseErrorActivity.class);
+//                    startActivity(intent);
+//                } else {
+//                    Toast.makeText(getActivity(), ((String) item), Toast.LENGTH_SHORT).show();
+//                }
+//            }
         }
     }
 

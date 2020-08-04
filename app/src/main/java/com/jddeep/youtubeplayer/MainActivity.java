@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
     boolean isPlaying = true;
     static float currTime = 0.0f;
     float vidDuration = currTime;
+    boolean flag = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,6 @@ public class MainActivity extends Activity {
 
             @Override
             public void onStateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlayerState playerState) {
-
             }
 
             @Override
@@ -82,6 +82,8 @@ public class MainActivity extends Activity {
             @Override
             public void onCurrentSecond(YouTubePlayer youTubePlayer, float v) {
                 currTime = v;
+                Log.e("currTime: ", currTime+" vidDuration: "+vidDuration);
+                if(currTime >= vidDuration) finish();
             }
 
             @Override
@@ -105,7 +107,6 @@ public class MainActivity extends Activity {
 
             }
         });
-
     }
 
     @Override
@@ -173,12 +174,18 @@ public class MainActivity extends Activity {
                     }
                 });
                 return true;
-
+            case KeyEvent.KEYCODE_BACK:
+                if(event.getAction() == 0){
+                    youTubePlayerView.release();
+                    finish();
+                }
+                return true;
+            default: return super.dispatchKeyEvent(event);
         }
-        return true;
+//        return super.dispatchKeyEvent(event);
     }
 
-//    @Override
+    //    @Override
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {
 //        Log.e("onKeyDown: ", "keycode: " + keyCode + "event: " + event.toString());
 //        switch (keyCode){
